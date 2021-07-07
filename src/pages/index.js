@@ -1,29 +1,35 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-
+import React from "react"
+import { Link, graphql } from "gatsby" //highlight-line
 import Layout from "../components/layout"
-import Seo from "../components/seo"
+import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["AUTO", "WEBP", "AVIF"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
-  </Layout>
-)
+export default function Home({ data }) {
+  return (
+    <Layout>
+      <SEO title="home" />
+      <h1>My Blog</h1>
+      {data.allWpPost.nodes.map(node => (
+        <div key={node.slug}>
+          {/* highlight-start */}
+          <Link to={node.slug}>
+            <p>{node.title}</p>
+          </Link>
+          {/* highlight-end */}
+          <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+        </div>
+      ))}
+    </Layout>
+  )
+}
 
-export default IndexPage
+export const pageQuery = graphql`
+  query {
+    allWpPost(sort: { fields: [date] }) {
+      nodes {
+        title
+        excerpt
+        slug
+      }
+    }
+  }
+`
