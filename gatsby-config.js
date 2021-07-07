@@ -2,17 +2,12 @@ module.exports = {
   siteMetadata: {
     title: `The Calm Tech`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    author: `@thecalmtech`,
   },
   plugins: [
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        /*
-         * The full URL of the WordPress site's GraphQL API.
-         * Example : 'https://www.example-site.com/graphql'
-         */
         url: `https://thecalmtech.com/graphql`,
       },
     },
